@@ -6,7 +6,7 @@ using GodotSharpDI.Tests.Services;
 namespace GodotSharpDI.Tests.Scopes;
 
 [Modules(
-    Services = [typeof(InventoryService), typeof(ScoreService)],
+    Services = [typeof(PlayerStatsService), typeof(InventoryService), typeof(ScoreService)],
     Hosts = [typeof(GameManager), typeof(AudioManager), typeof(InputManager)]
 )]
 public partial class GameScope : Node, IScope
