@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfa2jt4u74sja"]
+
+[ext_resource type="Script" uid="uid://2336ahtgq4hv" path="res://Scopes/GameScope.cs" id="1_5rbs6"]
+[ext_resource type="Script" uid="uid://qquyvkd74uir" path="res://Hosts/GameManager.cs" id="2_201fe"]
+[ext_resource type="Script" uid="uid://buanxhlvim825" path="res://Hosts/AudioManager.cs" id="3_xjl2p"]
+[ext_resource type="Script" uid="uid://r82pooss165q" path="res://Hosts/InputManager.cs" id="4_ytmxh"]
+[ext_resource type="Script" uid="uid://c7c7da8cp7ho" path="res://Users/PlayerUI.cs" id="5_hctok"]
+[ext_resource type="Script" uid="uid://d3uvxjrugxu5g" path="res://Scopes/QuestScope.cs" id="6_t2vuu"]
+[ext_resource type="Script" uid="uid://0vi8fe2lpd2k" path="res://Users/QuestUI.cs" id="7_lp1f3"]
+[ext_resource type="Script" uid="uid://jjf1pjlsmgjt" path="res://Users/PlayerController.cs" id="8_p30di"]
+[ext_resource type="Script" uid="uid://bn6exet3dvy7t" path="res://Users/EnemySpawner.cs" id="9_8c81w"]
+
+[node name="TestScene" type="Node"]
+
+[node name="GameScope" type="Node" parent="."]
+script = ExtResource("1_5rbs6")
+
+[node name="GameManager" type="Node" parent="GameScope"]
+script = ExtResource("2_201fe")
+
+[node name="AudioManager" type="Node" parent="GameScope"]
+script = ExtResource("3_xjl2p")
+
+[node name="InputManager" type="Node" parent="GameScope"]
+script = ExtResource("4_ytmxh")
+
+[node name="PlayerUI" type="Control" parent="GameScope"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 300.0
+script = ExtResource("5_hctok")
+
+[node name="QuestScope" type="Node" parent="GameScope"]
+script = ExtResource("6_t2vuu")
+
+[node name="QuestUI" type="Control" parent="GameScope/QuestScope"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 300.0
+script = ExtResource("7_lp1f3")
+
+[node name="PlayerController" type="Node2D" parent="GameScope/QuestScope"]
+script = ExtResource("8_p30di")
+
+[node name="EnemySpawner" type="Node2D" parent="GameScope/QuestScope"]
+script = ExtResource("9_8c81w")

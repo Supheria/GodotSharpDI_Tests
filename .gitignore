@@ -1,0 +1,41 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# .NET specific ignores
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+.vs/
+.vscode/
+*.sln.DotSettings.user
+
+# Rider
+.idea/
+*.sln.iml
+
+# Test results
+TestResult.xml
+TestResults/
+*.trx
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Build artifacts
+*.dll
+*.pdb
+*.mdb
+
+#nuget
+nuget.config
+LocalNuget/
