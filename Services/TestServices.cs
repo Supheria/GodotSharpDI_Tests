@@ -57,6 +57,11 @@ public partial class PlayerStatsService : IPlayerStats
     public int Mana { get; set; } = 50;
     public int MaxMana => 50;
 
+    public PlayerStatsService()
+    {
+        throw new NotImplementedException();
+    }
+
     public void TakeDamage(int damage)
     {
         Health = Math.Max(0, Health - damage);

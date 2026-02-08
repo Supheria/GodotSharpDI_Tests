@@ -43,3 +43,5 @@ public interface IInputManager
     Vector2 GetMovementInput();
     bool IsActionPressed(string action);
 }
+
+// public interface IConflict { }

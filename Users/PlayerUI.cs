@@ -33,6 +33,8 @@ public sealed partial class PlayerUI : Control, IServicesReady
         IsServicesReady = true;
         GD.Print("[PlayerUI] Services ready! Initializing UI...");
         UpdateUI();
+
+        var a = _gameManager.CurrentState;
     }
 
     public void UpdateUI()

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using GodotSharpDI.Abstractions;
+using GodotSharpDI.Tests.Hosts;
 using GodotSharpDI.Tests.Services;
 
 namespace GodotSharpDI.Tests.Users;
@@ -12,6 +13,9 @@ public sealed partial class QuestUI : Control, IServicesReady
 
     [Inject]
     private IScoreService _scoreService = null!;
+
+    [Inject]
+    private GameManager _gameManager = null!;
 
     public bool IsServicesReady { get; private set; }
 

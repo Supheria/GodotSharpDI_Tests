@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using GodotSharpDI.Abstractions;
 
 namespace GodotSharpDI.Tests.Hosts;
@@ -13,12 +14,13 @@ public sealed partial class GameManager : Node, IGameStateManager
         get
         {
             GD.Print("[GameManager] Providing self as service");
-            return this;
+            throw new Exception();
+            // return this;
         }
     }
 
-    [Singleton(typeof(IGameStateManager))]
-    private GameManager StateManager => this;
+    // [Singleton(typeof(IGameStateManager))]
+    // private GameManager StateManager => this;
 
     public GameState CurrentState { get; private set; } = new();
 
