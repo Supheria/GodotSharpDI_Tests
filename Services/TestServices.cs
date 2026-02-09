@@ -59,7 +59,7 @@ public partial class PlayerStatsService : IPlayerStats
 
     public PlayerStatsService()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
     }
 
     public void TakeDamage(int damage)

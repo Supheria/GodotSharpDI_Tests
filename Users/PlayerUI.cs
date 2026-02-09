@@ -6,7 +6,7 @@ using GodotSharpDI.Tests.Services;
 namespace GodotSharpDI.Tests.Users;
 
 [User]
-public sealed partial class PlayerUI : Control, IServicesReady
+public sealed partial class PlayerUI : Control, IDependenciesResolved
 {
     // Injected services
     [Inject]
@@ -19,22 +19,27 @@ public sealed partial class PlayerUI : Control, IServicesReady
     private GameManager _gameManager = null!;
 
     // State tracking for testing
-    public bool IsServicesReady { get; private set; }
+    public bool IsDependenciesReady { get; private set; }
     public int UpdateCount { get; private set; }
 
     public override void _Ready()
     {
         base._Ready();
-        GD.Print("[PlayerUI] _Ready called (before services ready)");
+        GD.Print("[PlayerUI] _Ready called (before dependencies resolved)");
     }
 
-    void IServicesReady.OnServicesReady()
+    void IDependenciesResolved.OnDependenciesResolved(bool isAllDependenciesReady)
     {
-        IsServicesReady = true;
-        GD.Print("[PlayerUI] Services ready! Initializing UI...");
-        UpdateUI();
-
-        var a = _gameManager.CurrentState;
+        IsDependenciesReady = isAllDependenciesReady;
+        if (isAllDependenciesReady)
+        {
+            GD.Print("[PlayerUI] Dependencies ready! Initializing UI...");
+            UpdateUI();
+        }
+        else
+        {
+            GD.Print("[PlayerUI] Dependencies failed! Cannot initializing UI...");
+        }
     }
 
     public void UpdateUI()

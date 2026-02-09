@@ -6,7 +6,7 @@ using GodotSharpDI.Tests.Services;
 namespace GodotSharpDI.Tests.Users;
 
 [User]
-public sealed partial class EnemySpawner : Node2D, IServicesReady
+public sealed partial class EnemySpawner : Node2D, IDependenciesResolved
 {
     [Inject]
     private IEnemyFactory _enemyFactory = null!;
@@ -14,18 +14,25 @@ public sealed partial class EnemySpawner : Node2D, IServicesReady
     [Inject]
     private IPlayerStats _playerStats = null!;
 
-    public bool IsServicesReady { get; private set; }
+    public bool IsDependenciesReady { get; private set; }
     public List<Enemy> SpawnedEnemies { get; } = new();
 
-    void IServicesReady.OnServicesReady()
+    void IDependenciesResolved.OnDependenciesResolved(bool isAllDependenciesReady)
     {
-        IsServicesReady = true;
-        GD.Print("[EnemySpawner] Services ready!");
+        IsDependenciesReady = isAllDependenciesReady;
+        if (isAllDependenciesReady)
+        {
+            GD.Print("[EnemySpawner] Dependencies ready!");
+        }
+        else
+        {
+            GD.Print("[EnemySpawner] Dependencies failed!");
+        }
     }
 
     public void SpawnEnemy(string enemyType)
     {
-        if (!IsServicesReady)
+        if (!IsDependenciesReady)
             return;
 
         var enemy = _enemyFactory.CreateEnemy(enemyType);

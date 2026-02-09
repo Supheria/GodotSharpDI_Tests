@@ -6,7 +6,7 @@ using GodotSharpDI.Tests.Services;
 namespace GodotSharpDI.Tests.Users;
 
 [User]
-public sealed partial class QuestUI : Control, IServicesReady
+public sealed partial class QuestUI : Control, IDependenciesResolved
 {
     [Inject]
     private IQuestService _questService = null!;
@@ -17,13 +17,20 @@ public sealed partial class QuestUI : Control, IServicesReady
     [Inject]
     private GameManager _gameManager = null!;
 
-    public bool IsServicesReady { get; private set; }
+    public bool IsDependenciesReady { get; private set; }
 
-    void IServicesReady.OnServicesReady()
+    void IDependenciesResolved.OnDependenciesResolved(bool isAllDependenciesReady)
     {
-        IsServicesReady = true;
-        GD.Print("[QuestUI] Services ready!");
-        DisplayQuests();
+        IsDependenciesReady = isAllDependenciesReady;
+        if (isAllDependenciesReady)
+        {
+            GD.Print("[QuestUI] Dependencies ready!");
+            DisplayQuests();
+        }
+        else
+        {
+            GD.Print("[QuestUI] Dependencies failed!");
+        }
     }
 
     public void DisplayQuests()

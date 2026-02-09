@@ -14,8 +14,8 @@ public sealed partial class GameManager : Node, IGameStateManager
         get
         {
             GD.Print("[GameManager] Providing self as service");
-            throw new Exception();
-            // return this;
+            // throw new Exception();
+            return this;
         }
     }
 

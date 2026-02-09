@@ -33,7 +33,7 @@ public class BasicDependencyInjectionTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert
-        user.IsServicesReady.Should().BeTrue("services should be injected");
+        user.IsDependenciesReady.Should().BeTrue("services should be injected");
         user.GetPlayerStats().Should().NotBeNull("PlayerStats should be injected");
         user.GetInventory().Should().NotBeNull("Inventory should be injected");
         user.GetGameManager().Should().NotBeNull("GameManager should be injected");
@@ -63,8 +63,8 @@ public class BasicDependencyInjectionTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert
-        user1.IsServicesReady.Should().BeTrue();
-        user2.IsServicesReady.Should().BeTrue();
+        user1.IsDependenciesReady.Should().BeTrue();
+        user2.IsDependenciesReady.Should().BeTrue();
         user1.GetPlayerStats().Should().NotBeNull();
         user2.GetPlayerStats().Should().NotBeNull();
     }
@@ -223,7 +223,7 @@ public class DependencyChainTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert
-        user.IsServicesReady.Should().BeTrue();
+        user.IsDependenciesReady.Should().BeTrue();
         var questService = user.GetQuestService();
         questService.Should().NotBeNull();
 
@@ -301,7 +301,7 @@ public class ScopeHierarchyTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert - child scope user can access services from parent scope
-        user.IsServicesReady.Should().BeTrue();
+        user.IsDependenciesReady.Should().BeTrue();
         user.GetQuestService().Should().NotBeNull();
         user.GetScoreService().Should().NotBeNull(); // From parent scope
     }
@@ -334,8 +334,8 @@ public class ScopeHierarchyTests : GodotIntegrationTestBase
         // Assert - each scope should have its own service instances
         // Note: This test assumes we can access the services somehow
         // In a real scenario, we'd need additional testing infrastructure
-        user1.IsServicesReady.Should().BeTrue();
-        user2.IsServicesReady.Should().BeTrue();
+        user1.IsDependenciesReady.Should().BeTrue();
+        user2.IsDependenciesReady.Should().BeTrue();
     }
 }
 
@@ -359,14 +359,14 @@ public class ServicesReadyCallbackTests : GodotIntegrationTestBase
         AddNode(scope);
 
         // Assert - before initialization
-        user.IsServicesReady.Should().BeFalse();
+        user.IsDependenciesReady.Should().BeFalse();
         user.UpdateCount.Should().Be(0);
 
         // Act
         await WaitForFrames(2);
 
         // Assert - after initialization
-        user.IsServicesReady.Should().BeTrue();
+        user.IsDependenciesReady.Should().BeTrue();
         user.UpdateCount.Should().BeGreaterThan(0, "OnServicesReady should trigger UpdateUI");
     }
 
@@ -396,8 +396,8 @@ public class ServicesReadyCallbackTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert
-        user1.IsServicesReady.Should().BeTrue();
-        user2.IsServicesReady.Should().BeTrue();
-        user3.IsServicesReady.Should().BeTrue();
+        user1.IsDependenciesReady.Should().BeTrue();
+        user2.IsDependenciesReady.Should().BeTrue();
+        user3.IsDependenciesReady.Should().BeTrue();
     }
 }

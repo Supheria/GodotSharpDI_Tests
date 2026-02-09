@@ -6,7 +6,7 @@ using GodotSharpDI.Tests.Services;
 namespace GodotSharpDI.Tests.Users;
 
 [User]
-public sealed partial class PlayerController : Node2D, IServicesReady
+public sealed partial class PlayerController : Node2D, IDependenciesResolved
 {
     [Inject]
     private IPlayerStats _playerStats = null!;
@@ -20,18 +20,25 @@ public sealed partial class PlayerController : Node2D, IServicesReady
     [Inject]
     private GameManager _gameManager = null!;
 
-    public bool IsServicesReady { get; private set; }
+    public bool IsDependenciesReady { get; private set; }
     public Vector2 Velocity { get; private set; }
 
-    void IServicesReady.OnServicesReady()
+    void IDependenciesResolved.OnDependenciesResolved(bool isAllDependenciesReady)
     {
-        IsServicesReady = true;
-        GD.Print("[PlayerController] Services ready!");
+        IsDependenciesReady = isAllDependenciesReady;
+        if (isAllDependenciesReady)
+        {
+            GD.Print("[PlayerController] Dependencies ready!");
+        }
+        else
+        {
+            GD.Print("[PlayerController] Dependencies failed!");
+        }
     }
 
     public override void _Process(double delta)
     {
-        if (!IsServicesReady || _gameManager.CurrentState.IsPaused)
+        if (!IsDependenciesReady || _gameManager.CurrentState.IsPaused)
             return;
 
         // Get input and move

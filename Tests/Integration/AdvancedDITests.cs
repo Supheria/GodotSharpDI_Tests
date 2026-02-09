@@ -54,10 +54,10 @@ public class AdvancedDIScenarioTests : GodotIntegrationTestBase
         await WaitForFrames(3);
 
         // Assert - all components should be initialized
-        ui1.IsServicesReady.Should().BeTrue();
-        ui2.IsServicesReady.Should().BeTrue();
-        controller.IsServicesReady.Should().BeTrue();
-        spawner.IsServicesReady.Should().BeTrue();
+        ui1.IsDependenciesReady.Should().BeTrue();
+        ui2.IsDependenciesReady.Should().BeTrue();
+        controller.IsDependenciesReady.Should().BeTrue();
+        spawner.IsDependenciesReady.Should().BeTrue();
 
         // Verify service sharing
         var stats1 = ui1.GetPlayerStats();
@@ -85,7 +85,7 @@ public class AdvancedDIScenarioTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert - dynamically added user should receive injection
-        dynamicUser.IsServicesReady.Should().BeTrue();
+        dynamicUser.IsDependenciesReady.Should().BeTrue();
         dynamicUser.GetPlayerStats().Should().NotBeNull();
     }
 
@@ -230,7 +230,7 @@ public class AdvancedDIScenarioTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Assert - controller should have all hosts injected
-        controller.IsServicesReady.Should().BeTrue();
+        controller.IsDependenciesReady.Should().BeTrue();
         controller.GetPlayerStats().Should().NotBeNull();
         controller.GetInputManager().Should().BeSameAs(inputManager);
         controller.GetAudioManager().Should().BeSameAs(audioManager);
@@ -264,15 +264,15 @@ public class AdvancedDIScenarioTests : GodotIntegrationTestBase
         await WaitForFrames(2);
 
         // Verify both are working
-        user1.IsServicesReady.Should().BeTrue();
-        user2.IsServicesReady.Should().BeTrue();
+        user1.IsDependenciesReady.Should().BeTrue();
+        user2.IsDependenciesReady.Should().BeTrue();
 
         // Act - destroy first scope
         scope1.QueueFree();
         await WaitForFrames(2);
 
         // Assert - second scope should still work
-        user2.IsServicesReady.Should().BeTrue();
+        user2.IsDependenciesReady.Should().BeTrue();
         user2.GetPlayerStats().Should().NotBeNull();
     }
 }
@@ -319,7 +319,7 @@ public class EdgeCaseTests : GodotIntegrationTestBase
 
         // Assert - user should exist but not be ready
         GodotObject.IsInstanceValid(user).Should().BeTrue();
-        user.IsServicesReady.Should().BeFalse();
+        user.IsDependenciesReady.Should().BeFalse();
     }
 
     [Test]
@@ -351,7 +351,7 @@ public class EdgeCaseTests : GodotIntegrationTestBase
         await WaitForFrames(3);
 
         // Assert - deep user should receive services from top level
-        deepUser.IsServicesReady.Should().BeTrue();
+        deepUser.IsDependenciesReady.Should().BeTrue();
         deepUser.GetQuestService().Should().NotBeNull();
         deepUser.GetScoreService().Should().NotBeNull();
     }
