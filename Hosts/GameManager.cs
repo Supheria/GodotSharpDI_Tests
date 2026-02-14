@@ -8,7 +8,7 @@ namespace GodotSharpDI.Tests.Hosts;
 public sealed partial class GameManager : Node, IGameStateManager
 {
     // Expose itself as a service
-    [Singleton(typeof(GameManager))]
+    [Provide(ExposedTypes = [typeof(GameManager)])]
     private GameManager Self
     {
         get

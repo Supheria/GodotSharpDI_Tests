@@ -49,8 +49,9 @@ public interface IScoreService
 // Service Implementations
 // ========================================
 
-[Singleton(typeof(IPlayerStats))]
-public partial class PlayerStatsService : IPlayerStats
+public interface ISecond;
+
+public class PlayerStatsService : IPlayerStats, ISecond
 {
     public int Health { get; set; } = 100;
     public int MaxHealth => 100;
@@ -83,7 +84,6 @@ public partial class PlayerStatsService : IPlayerStats
     }
 }
 
-[Singleton(typeof(IInventoryService))]
 public partial class InventoryService : IInventoryService
 {
     private readonly List<string> _items = new();
@@ -111,7 +111,6 @@ public partial class InventoryService : IInventoryService
     }
 }
 
-[Singleton(typeof(IQuestService))]
 public partial class QuestService : IQuestService
 {
     private readonly IPlayerStats _playerStats;
@@ -119,10 +118,9 @@ public partial class QuestService : IQuestService
 
     public int ActiveQuestCount => _activeQuests.Count;
 
-    // Constructor injection with dependency
-    [InjectConstructor]
     public QuestService(IPlayerStats playerStats)
     {
+        ArgumentNullException.ThrowIfNull(playerStats);
         _playerStats = playerStats;
     }
 
@@ -151,7 +149,6 @@ public partial class QuestService : IQuestService
     }
 }
 
-[Singleton(typeof(IScoreService))]
 public partial class ScoreService : IScoreService
 {
     public int CurrentScore { get; private set; }
@@ -173,14 +170,13 @@ public interface IEnemyFactory
     Enemy CreateEnemy(string enemyType);
 }
 
-[Singleton(typeof(IEnemyFactory))]
 public partial class EnemyFactory : IEnemyFactory
 {
     private readonly IPlayerStats _playerStats;
 
-    [InjectConstructor]
     public EnemyFactory(IPlayerStats playerStats)
     {
+        ArgumentNullException.ThrowIfNull(playerStats);
         _playerStats = playerStats;
     }
 
@@ -198,6 +194,7 @@ public class Enemy
 
     public Enemy(string type, IPlayerStats playerStats)
     {
+        ArgumentNullException.ThrowIfNull(playerStats);
         Type = type;
         _playerStats = playerStats;
     }

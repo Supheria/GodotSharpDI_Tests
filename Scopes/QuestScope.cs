@@ -1,16 +1,11 @@
 ﻿using Godot;
 using GodotSharpDI.Abstractions;
+using GodotSharpDI.Tests.Hosts;
 using GodotSharpDI.Tests.Services;
 
 namespace GodotSharpDI.Tests.Scopes;
 
-[Modules(
-    Services = [
-        typeof(QuestService), // This depends on IPlayerStats
-        typeof(EnemyFactory), // This also depends on IPlayerStats
-    ],
-    Hosts = []
-)]
+[Modules(Hosts = [typeof(QuestScopeServiceHost)])]
 public partial class QuestScope : Node, IScope
 {
     public override void _Ready()

@@ -6,7 +6,7 @@ namespace GodotSharpDI.Tests.Hosts;
 [Host]
 public sealed partial class InputManager : Node, IInputManager
 {
-    [Singleton(typeof(IInputManager))]
+    [Provide(ExposedTypes = [typeof(IInputManager)])]
     private InputManager Self => this;
 
     public Vector2 GetMovementInput()

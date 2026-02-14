@@ -3,7 +3,7 @@ using GodotSharpDI.Abstractions;
 
 namespace GodotSharpDI.Tests.Scopes;
 
-[Modules(Services = [], Hosts = [])]
+[Modules(Hosts = [])]
 public partial class EmptyScope : Node, IScope
 {
     public override void _Ready()

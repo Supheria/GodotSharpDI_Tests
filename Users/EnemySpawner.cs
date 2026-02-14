@@ -14,6 +14,9 @@ public sealed partial class EnemySpawner : Node2D, IDependenciesResolved
     [Inject]
     private IPlayerStats _playerStats = null!;
 
+    [Inject]
+    private ISecond _playerStats2 = null!;
+
     public bool IsDependenciesReady { get; private set; }
     public List<Enemy> SpawnedEnemies { get; } = new();
 

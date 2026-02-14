@@ -6,13 +6,10 @@ namespace GodotSharpDI.Tests.Hosts;
 [Host]
 public sealed partial class AudioManager : Node, IAudioManager
 {
-    [Singleton(typeof(IAudioManager))]
+    [Provide(ExposedTypes = [typeof(IAudioManager)])]
     private AudioManager Self
     {
-        get
-        {
-            return this;
-        }
+        get { return this; }
     }
 
     public float MasterVolume { get; set; } = 1.0f;
